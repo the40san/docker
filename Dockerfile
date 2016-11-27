@@ -1,6 +1,12 @@
-FROM openjdk:8-jdk
+# --- Base image setup begin ---
+FROM centos:centos7
 
-RUN apt-get update && apt-get install -y git curl && rm -rf /var/lib/apt/lists/*
+RUN yum update -y && \
+    yum install -y java-1.8.0-openjdk
+ENV JAVA_HOME /usr/lib/jvm/`ls /usr/lib/jvm | grep java-1.8.0-openjdk`
+
+# --- Base image setup end ---
+RUN yum update -y && yum install -y git curl
 
 ENV JENKINS_HOME /var/jenkins_home
 ENV JENKINS_SLAVE_AGENT_PORT 50000
